@@ -1,0 +1,228 @@
+@import './login';
+@import './home';
+@green: #7bca4a;
+@gray: #eeeeee;
+@red: #FE645F;
+@blue: #409EFF;
+html {
+  width: 100%;
+  height: 100%;
+}
+body {
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  font-size: 14px;
+  margin: 0;
+  min-width: 1280px;
+  height: 100%;
+}
+
+a {
+  text-decoration: none
+}
+
+.pull-right {
+  float: right;
+}
+
+.pull-left {
+  float: left;
+}
+
+.clear-fix {
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+}
+h1,h2,h3,h4,h5,h6 {
+  margin: 0;
+  padding: 0;
+}
+.text-center {
+  text-align: center
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.bg-home {
+  background-color: rgba(240, 242, 245, 1)
+}
+
+.bg-green {
+  background-color: @green;
+}
+
+.bg-gray {
+  background-color: @gray;
+}
+
+.bg-white {
+  background-color: #ffffff
+}
+
+.color-red {
+  color: @red;
+}
+.color-blue {
+  color: @blue;
+}
+.ver-middle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%)
+}
+
+.h_100 {
+  height: 100%;
+}
+
+.mt10 {
+  margin-top: 10px ;
+}
+
+.mt15 {
+  margin-top: 15px ;
+}
+
+.mt20 {
+  margin-top: 20px ;
+}
+
+.mt30 {
+  margin-top: 30px ;
+}
+
+.mr15 {
+  margin-right: 15px ;
+}
+
+.mr20 {
+  margin-right: 20px ;
+}
+
+.mr40 {
+  margin-right: 40px ;
+}
+
+.ml10 {
+  margin-left: 10px ;
+}
+
+.ml15 {
+  margin-left: 15px ;
+}
+
+.ml30 {
+  margin-left: 30px ;
+}
+
+.mb0 {
+  margin-bottom: 0 ;
+}
+
+.mb10 {
+  margin-bottom: 10px ;
+}
+
+.mb15 {
+  margin-bottom: 15px ;
+}
+
+.pd0 {
+  padding: 0 ;
+}
+
+.pd15 {
+  padding: 15px ;
+}
+
+.pd20 {
+  padding: 20px;
+}
+
+.pd50 {
+  padding: 50px ;
+}
+
+.pt20 {
+  padding-top: 20px ;
+}
+
+.pl20 {
+  padding-left: 20px ;
+}
+
+.pl50 {
+  padding-left: 50px ;
+}
+.pb15 {
+  padding-bottom: 15px;
+}
+.ptb10 {
+  padding: 10px 0 ; 
+}
+
+.ptb15 {
+  padding: 15px 0 ; 
+}
+.w80 {
+  width: 80px ;
+}
+
+.w90 {
+  width: 90px ;
+}
+
+.w100 {
+  width: 100px ;
+}
+
+.w110 {
+  width: 110px ;
+}
+
+.w120 {
+  width: 120px ;
+}
+
+.w150 {
+  width: 150px !important ;
+}
+
+.w180 {
+  width: 180px ;
+}
+
+.w300 {
+  width: 300px ;
+}
+
+.w400 {
+  width: 400px ;
+}
+
+.w500 {
+  width: 500px ;
+}
+
+.w600 {
+  width: 600px ;
+}
+.bot-line{
+  position: relative;
+}
+.bot-line::after {
+  content: " ";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 1px;
+  border-bottom: 1px solid #dddddd;
+  transform-origin: 0 0;
+  transform: scaleY(0.5);
+}
