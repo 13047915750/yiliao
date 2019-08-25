@@ -3,20 +3,33 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import '@/assets/less/public.less'
-import store from './store'
-Vue.config.productionTip = false
 
-/* eslint-disable no-new */
-import ElementUI from 'element-ui'
+import store from './store'
+import '@/assets/less/main.less'
+import '@/assets/less/iconfont/iconfont.css'
 import 'element-ui/lib/theme-chalk/index.css'
-import untils from './mixins/untils'
-Vue.mixin(untils)
-Vue.use(ElementUI) 
-new Vue({
+import ElementUI from 'element-ui'
+import VueDirectiveImagePreviewer from 'vue-directive-image-previewer'
+import 'vue-directive-image-previewer/dist/assets/style.css'
+
+import mixin from './mixin/index'
+import * as filters from './filters'
+Vue.use(ElementUI)
+Vue.mixin(mixin)
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
+Vue.use(VueDirectiveImagePreviewer, {
+  zIndex: 9999
+})
+Vue.config.productionTip = false
+const vm = new Vue({
   el: '#app',
   router,
   store,
   components: { App },
   template: '<App/>'
+})
+Vue.use({
+  vm
 })

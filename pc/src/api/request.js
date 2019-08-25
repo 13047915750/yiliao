@@ -1,48 +1,66 @@
 import axios from 'axios'
-import qs from 'qs'
+import { throwErr, clearParams } from '@/utils'
 import store from '@/store'
 import { Message } from 'element-ui'
-axios.interceptors.response.use(function (res) {
-  // 在发送请求之前做些什么
-  if (res.data.code === 103) {
-    Message({
-      message: '登录超时'
-    })
-    store.dispatch('logout')
-  }
-  return res;
-}, function (error) {
-  // 对请求错误做些什么
-  return Promise.reject(error);
-});
+// import * as ls from '@/utils/localStorage'
+// import router from '@/router'
 
+// 过滤请求
+const Request = axios.create({
+
+})
+Request.interceptors.request.use(config => {
+  config.timeout = 10 * 1000
+  return config
+}, error => {
+  return Promise.reject(error)
+})
 // 添加响应拦截器
-axios.interceptors.response.use(function (response) {
-  // 对响应数据做点什么
-  return response;
-}, function (error) {
-  // 对响应错误做点什么
-  return Promise.reject(error);
-});
-// const ORIGIN = 'http://gsnc.xiyoukeji.com/api/'
-export default function request(url, data) {
-  return axios({
-    method: 'post',
-    url,
-    data,
-    transformRequest: [function (data) {
-      return qs.stringify(data, { arrayFormat: 'repeat' })
-    }],
-  })
-    .then(handleState)
-    .catch(err => {
-      return Promise.reject(err)
-    })
-}
-
-function handleState(response) {
-  if (response.data.code === 100) {
-    return response.data
+Request.interceptors.response.use(
+  response => {
+    if (response.data.code === 0) {
+      return Promise.resolve(response.data)
+    } else if (response.data.code === 4801) {
+      store.dispatch('logout', {})
+      Message({
+        message: '已失效，请重新登录'
+      })
+      return Promise.resolve(response.data)
+    } else {
+      Message({
+        type: 'error',
+        message: response.data.message
+      })
+      return Promise.reject(response.data)
+    }
+  },
+  error => {
+    if (error && error.response) {
+      let res = {}
+      res.code = error.response.status
+      res.message = throwErr(error.response.status, error.response)
+      Message({
+        type: 'error',
+        message: res.message
+      })
+      return Promise.reject(res)
+    }
+    return Promise.reject(error)
   }
-  return Promise.reject(response.data)
+)
+export default function request(method, url, data) {
+  method = method.toLocaleLowerCase()
+  if (method === 'post') {
+    return Request.post(url, data)
+  } else if (method === 'patch') {
+    return Request.patch(url, data)
+  } else if (method === 'get') {
+    return Request.get(url, {
+      params: clearParams(data)
+    })
+  } else if (method === 'delete') {
+    return Request.delete(url, {
+      data: data
+    })
+  }
 }
